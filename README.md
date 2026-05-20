@@ -78,13 +78,4 @@ Packaging creates:
 - `dist/godot-addon-auditor-0.1.1.zip`
 - `dist/godot-addon-auditor-0.1.1.zip.sha256`
 
-## Release And Listing Path
-
-- Primary source and release host: GitHub.
-- Likely listing platforms: GitHub Releases first, then the Godot Asset Library once a public repository/release URL exists.
-- Review constraints: Godot Asset Library submissions should include a clean add-on folder, README, license, versioned source URL, and a useful image.
-- Support expectation: best-effort issue triage through GitHub Issues.
-
 Godot Add-on Auditor is fully usable for free.
-
-If this tool saves you time, you can support future free tools at https://ko-fi.com/grindknight.
