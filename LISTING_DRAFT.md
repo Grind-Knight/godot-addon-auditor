@@ -20,13 +20,13 @@ Godot add-on releases are easy to break with a missing `plugin.cfg` field, broke
 
 Godot Add-on Auditor is a free command-line checker for Godot 4 add-on authors. It scans a project for `addons/*/plugin.cfg`, validates required plugin metadata, checks that the configured plugin script exists, warns about missing add-on README/license files, and points out folders that should not ship in release packages.
 
-Use it before creating a GitHub release or submitting to the Godot Asset Library. It runs outside the Godot editor, exits with a non-zero status on blocking errors, and can be added to a release script or CI workflow.
+Use it before creating a GitHub release or submitting to the Godot Asset Library. It runs outside the Godot editor, exits with a non-zero status on blocking errors, and can be added to a release script or CI workflow. For GitHub Actions, `--github-annotations` prints workflow annotations so errors and warnings show up directly in CI logs.
 
 ## Free Delivery
 
 - GitHub source repository.
-- GitHub Release ZIP: `godot-addon-auditor-0.1.0.zip`.
-- SHA-256 checksum: `godot-addon-auditor-0.1.0.zip.sha256`.
+- GitHub Release ZIP: `godot-addon-auditor-0.1.1.zip`.
+- SHA-256 checksum: `godot-addon-auditor-0.1.1.zip.sha256`.
 - No paid upgrade, account, subscription, or gated download.
 
 ## Optional Support Copy

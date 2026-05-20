@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-import { auditProject, formatReport } from "./auditor.mjs";
+import { auditProject, formatGitHubAnnotations, formatReport } from "./auditor.mjs";
 import { readFileSync } from "node:fs";
 
 const args = process.argv.slice(2);
 const version = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")).version;
 const versionRequested = takeFlag(args, "--version") || takeFlag(args, "-v");
 const json = takeFlag(args, "--json");
+const githubAnnotations = takeFlag(args, "--github-annotations");
 const addonDir = takeOption(args, "--addon-dir");
 const help = takeFlag(args, "--help") || takeFlag(args, "-h");
 
@@ -15,11 +16,16 @@ if (versionRequested) {
 }
 
 if (help) {
-  console.log(`Usage: godot-addon-auditor <project-root> [--addon-dir addons/my_addon] [--json] [--version]
+  console.log(`Usage: godot-addon-auditor <project-root> [--addon-dir addons/my_addon] [--json] [--github-annotations] [--version]
 
 Checks Godot 4 add-ons for common release and Asset Library packaging issues.
 Exits with code 1 when blocking errors are found.`);
   process.exit(0);
+}
+
+if (json && githubAnnotations) {
+  console.error("Choose only one machine-readable output mode: --json or --github-annotations.");
+  process.exit(2);
 }
 
 const unexpectedFlag = args.find((arg) => arg.startsWith("-"));
@@ -34,6 +40,8 @@ const report = auditProject(projectRoot, { addonDir });
 
 if (json) {
   console.log(JSON.stringify(report, null, 2));
+} else if (githubAnnotations) {
+  console.log(formatGitHubAnnotations(report));
 } else {
   console.log(formatReport(report));
 }

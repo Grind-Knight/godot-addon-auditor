@@ -78,6 +78,16 @@ export function formatReport(report) {
   return lines.join("\n");
 }
 
+export function formatGitHubAnnotations(report) {
+  return report.items
+    .map((item) => {
+      const command = item.level === "error" ? "error" : item.level === "warning" ? "warning" : "notice";
+      const file = item.path ? ` file=${escapeWorkflowProperty(item.path)},` : " ";
+      return `::${command}${file}title=${escapeWorkflowProperty(item.code)}::${escapeWorkflowMessage(item.message)}`;
+    })
+    .join("\n");
+}
+
 function auditAddon(projectRoot, addonRoot) {
   const items = [];
   const configPath = path.join(addonRoot, "plugin.cfg");
@@ -247,4 +257,20 @@ function issue(level, code, message, itemPath) {
 
 function normalizePath(input) {
   return input.replace(/\\/g, "/");
+}
+
+function escapeWorkflowProperty(value) {
+  return String(value)
+    .replace(/%/g, "%25")
+    .replace(/\r/g, "%0D")
+    .replace(/\n/g, "%0A")
+    .replace(/:/g, "%3A")
+    .replace(/,/g, "%2C");
+}
+
+function escapeWorkflowMessage(value) {
+  return String(value)
+    .replace(/%/g, "%25")
+    .replace(/\r/g, "%0D")
+    .replace(/\n/g, "%0A");
 }

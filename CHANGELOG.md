@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 - 2026-05-17
+
+- Added `--github-annotations` output for GitHub Actions workflows.
+- Added CLI validation so `--json` and `--github-annotations` cannot be requested together.
+- Added tests for annotation formatting and the new CLI output mode.
+
 ## 0.1.0 - 2026-05-17
 
 - Added the first Godot Add-on Auditor CLI.

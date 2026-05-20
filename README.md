@@ -26,6 +26,12 @@ JSON output is available for scripts:
 node src/cli.mjs path\to\your\godot-project --json
 ```
 
+GitHub Actions annotation output is available for CI logs:
+
+```powershell
+node src/cli.mjs path\to\your\godot-project --github-annotations
+```
+
 To audit one explicit add-on folder:
 
 ```powershell
@@ -48,6 +54,7 @@ node src/cli.mjs --version
 - Warns when the plugin script does not include `@tool` or `extends EditorPlugin`.
 - Warns when the add-on folder does not include its own `README.md` and license file.
 - Warns when release-noise folders such as `.git`, `.godot`, `.import`, `.vs`, or `node_modules` are present under the audited project.
+- Can print GitHub Actions annotations for CI workflows.
 
 ## Supported Godot Version
 
@@ -69,8 +76,8 @@ npm run package
 
 Packaging creates:
 
-- `dist/godot-addon-auditor-0.1.0.zip`
-- `dist/godot-addon-auditor-0.1.0.zip.sha256`
+- `dist/godot-addon-auditor-0.1.1.zip`
+- `dist/godot-addon-auditor-0.1.1.zip.sha256`
 - `dist/listing-kit/` with listing copy, release checklist, and product images
 
 ## Release And Listing Path

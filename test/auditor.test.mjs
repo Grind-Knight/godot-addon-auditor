@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync, mkdirSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { auditProject, parsePluginConfig } from "../src/auditor.mjs";
+import { auditProject, formatGitHubAnnotations, parsePluginConfig } from "../src/auditor.mjs";
 
 const packageJson = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
 
@@ -27,6 +27,10 @@ const badReport = auditProject(path.resolve("examples/bad-project"));
 assert.ok(badReport.summary.errors >= 2);
 assert.ok(badReport.items.some((item) => item.code === "PLUGIN_KEY_MISSING"));
 assert.ok(badReport.items.some((item) => item.code === "PLUGIN_SCRIPT_MISSING"));
+
+const annotations = formatGitHubAnnotations(badReport);
+assert.match(annotations, /::error file=addons\/broken_tool\/plugin\.cfg,title=PLUGIN_KEY_MISSING::/);
+assert.match(annotations, /::error file=addons\/broken_tool\/missing_plugin\.gd,title=PLUGIN_SCRIPT_MISSING::/);
 
 const tempRoot = mkdtempSync(path.join(os.tmpdir(), "godot-addon-auditor-"));
 try {
@@ -55,5 +59,13 @@ assert.match(missingAddonDirResult.stderr, /Missing value for --addon-dir/);
 const unknownFlagResult = spawnSync(process.execPath, ["src/cli.mjs", "--bogus"], { encoding: "utf8" });
 assert.equal(unknownFlagResult.status, 2);
 assert.match(unknownFlagResult.stderr, /Unknown option: --bogus/);
+
+const annotationResult = spawnSync(process.execPath, ["src/cli.mjs", "examples/bad-project", "--github-annotations"], { encoding: "utf8" });
+assert.equal(annotationResult.status, 1);
+assert.match(annotationResult.stdout, /::error file=addons\/broken_tool\/plugin\.cfg,title=PLUGIN_KEY_MISSING::/);
+
+const conflictingOutputResult = spawnSync(process.execPath, ["src/cli.mjs", "examples/bad-project", "--json", "--github-annotations"], { encoding: "utf8" });
+assert.equal(conflictingOutputResult.status, 2);
+assert.match(conflictingOutputResult.stderr, /Choose only one machine-readable output mode/);
 
 console.log("auditor tests passed");

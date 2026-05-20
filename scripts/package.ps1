@@ -114,7 +114,7 @@ Publisher: Grind Knight
 
 ## Next Publishing Step
 
-Create a public GitHub repository/release, attach the ZIP, then use the GitHub release URL in any Godot Asset Library, itch.io, or Ko-fi post copy.
+Create or update the public GitHub release, attach the ZIP, then use the GitHub release URL in any Godot Asset Library, itch.io, or Ko-fi post copy.
 "@
 
 Set-Content -LiteralPath (Join-Path $kitDir "SUBMISSION_CHECKLIST.md") -Value $checklist -Encoding UTF8
