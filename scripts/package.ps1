@@ -6,6 +6,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $packageJson = Get-Content -Raw (Join-Path $root "package.json") | ConvertFrom-Json
 $version = $packageJson.version
+$readme = Get-Content -Raw (Join-Path $root "README.md")
 $distDir = Join-Path $root "dist"
 $assetDir = Join-Path $distDir "store-assets"
 $assetOutDir = Join-Path $distDir "release-assets"
@@ -14,6 +15,10 @@ $checksumPath = "$packagePath.sha256"
 
 & (Join-Path $PSScriptRoot "test.ps1")
 & (Join-Path $PSScriptRoot "create-assets.ps1")
+
+if ($readme -notmatch "https://ko-fi.com/grindknight") {
+  throw "README.md must include the public Ko-fi support link."
+}
 
 if (Test-Path $packagePath) {
   Remove-Item -LiteralPath $packagePath -Force

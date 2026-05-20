@@ -9,6 +9,7 @@ It checks the parts that are easy to miss when finishing an editor plugin: `plug
 - Target user: indie Godot 4 plugin authors, jam-tool builders, and small teams preparing a free add-on for GitHub or the Godot Asset Library.
 - Pain point: release mistakes such as missing `plugin/description`, broken `plugin/script`, forgotten license files, or accidental `.godot`/`.import` folders can slow down review and confuse users.
 - Free delivery path: GitHub source plus a downloadable release ZIP.
+- Optional support: if this tool helps, you can support future free tools at https://ko-fi.com/grindknight.
 
 ## Install And Run
 
@@ -85,3 +86,5 @@ Packaging creates:
 - Support expectation: best-effort issue triage through GitHub Issues.
 
 Godot Add-on Auditor is fully usable for free.
+
+If this tool saves you time, you can support future free tools at https://ko-fi.com/grindknight.
