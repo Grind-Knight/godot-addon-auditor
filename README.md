@@ -9,7 +9,6 @@ It checks the parts that are easy to miss when finishing an editor plugin: `plug
 - Target user: indie Godot 4 plugin authors, jam-tool builders, and small teams preparing a free add-on for GitHub or the Godot Asset Library.
 - Pain point: release mistakes such as missing `plugin/description`, broken `plugin/script`, forgotten license files, or accidental `.godot`/`.import` folders can slow down review and confuse users.
 - Free delivery path: GitHub source plus a downloadable release ZIP.
-- Optional support: if this saves you time, you can support future free tools at https://ko-fi.com/grindknight.
 
 ## Install And Run
 
@@ -63,7 +62,6 @@ The checks are aimed at Godot 4.x editor plugins. The tool does not run the Godo
 ## Known Limitations
 
 - It does not replace testing the plugin inside Godot.
-- It does not submit anything to the Godot Asset Library.
 - It does not validate every possible `plugin.cfg` field or license type.
 - It assumes a normal `addons/<addon_name>/plugin.cfg` layout unless `--addon-dir` is provided.
 
@@ -78,14 +76,12 @@ Packaging creates:
 
 - `dist/godot-addon-auditor-0.1.1.zip`
 - `dist/godot-addon-auditor-0.1.1.zip.sha256`
-- `dist/listing-kit/` with listing copy, release checklist, and product images
 
 ## Release And Listing Path
 
 - Primary source and release host: GitHub.
 - Likely listing platforms: GitHub Releases first, then the Godot Asset Library once a public repository/release URL exists.
-- Account prerequisites: GitHub credentials for the source/release repo; Godot Asset Library account if submitting the add-on as a helper utility.
 - Review constraints: Godot Asset Library submissions should include a clean add-on folder, README, license, versioned source URL, and a useful image.
-- Support expectation: best-effort issue triage through GitHub Issues. No paid support tier is offered.
+- Support expectation: best-effort issue triage through GitHub Issues.
 
-Godot Add-on Auditor is fully usable for free. The Ko-fi link is optional and only supports building more free game-development tools.
+Godot Add-on Auditor is fully usable for free.

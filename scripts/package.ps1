@@ -8,7 +8,7 @@ $packageJson = Get-Content -Raw (Join-Path $root "package.json") | ConvertFrom-J
 $version = $packageJson.version
 $distDir = Join-Path $root "dist"
 $assetDir = Join-Path $distDir "store-assets"
-$kitDir = Join-Path $distDir "listing-kit"
+$assetOutDir = Join-Path $distDir "release-assets"
 $packagePath = Join-Path $distDir "godot-addon-auditor-$version.zip"
 $checksumPath = "$packagePath.sha256"
 
@@ -21,14 +21,15 @@ if (Test-Path $packagePath) {
 if (Test-Path $checksumPath) {
   Remove-Item -LiteralPath $checksumPath -Force
 }
-if (Test-Path $kitDir) {
-  Remove-Item -LiteralPath $kitDir -Recurse -Force
+if (Test-Path $assetOutDir) {
+  Remove-Item -LiteralPath $assetOutDir -Recurse -Force
 }
 
 New-Item -ItemType Directory -Force -Path $distDir | Out-Null
-New-Item -ItemType Directory -Force -Path (Join-Path $kitDir "assets") | Out-Null
+New-Item -ItemType Directory -Force -Path $assetOutDir | Out-Null
 
 $skipDirs = @("dist", "node_modules", ".git", ".godot", ".import", ".npm-cache")
+$skipFilePatterns = @("*.internal.md", "PRIVATE_*.md")
 
 function Add-ZipFile($zip, $sourcePath, $entryName) {
   $entry = $zip.CreateEntry($entryName.Replace("\", "/"), [System.IO.Compression.CompressionLevel]::Optimal)
@@ -63,6 +64,17 @@ function Add-ZipDirectory($zip, $baseDir, $currentDir) {
       continue
     }
 
+    $skipFile = $false
+    foreach ($pattern in $skipFilePatterns) {
+      if ($item.Name -like $pattern) {
+        $skipFile = $true
+        break
+      }
+    }
+    if ($skipFile) {
+      continue
+    }
+
     $relative = Get-CompatibleRelativePath $baseDir $item.FullName
     Add-ZipFile $zip $item.FullName $relative
   }
@@ -78,47 +90,9 @@ try {
 $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $packagePath).Hash.ToLowerInvariant()
 Set-Content -LiteralPath $checksumPath -Value "$hash  godot-addon-auditor-$version.zip" -Encoding UTF8
 
-Copy-Item -LiteralPath (Join-Path $assetDir "cover-1600x1200.png") -Destination (Join-Path $kitDir "assets\cover-1600x1200.png")
-Copy-Item -LiteralPath (Join-Path $assetDir "demo-report-1280x800.png") -Destination (Join-Path $kitDir "assets\demo-report-1280x800.png")
-Copy-Item -LiteralPath (Join-Path $root "README.md") -Destination (Join-Path $kitDir "README.md")
-Copy-Item -LiteralPath (Join-Path $root "LISTING_DRAFT.md") -Destination (Join-Path $kitDir "LISTING_DRAFT.md")
-Copy-Item -LiteralPath (Join-Path $root "RELEASE_CHECKLIST.md") -Destination (Join-Path $kitDir "RELEASE_CHECKLIST.md")
-Copy-Item -LiteralPath (Join-Path $root "CHANGELOG.md") -Destination (Join-Path $kitDir "CHANGELOG.md")
-Copy-Item -LiteralPath $packagePath -Destination (Join-Path $kitDir "godot-addon-auditor-$version.zip")
-Copy-Item -LiteralPath $checksumPath -Destination (Join-Path $kitDir "godot-addon-auditor-$version.zip.sha256")
-
-$checklist = @"
-# Godot Add-on Auditor Listing Kit
-
-Version: $version
-Publisher: Grind Knight
-
-## Included
-
-- godot-addon-auditor-$version.zip - Free GitHub release package.
-- godot-addon-auditor-$version.zip.sha256 - SHA-256 checksum for release verification.
-- README.md - install, usage, support, and limitation notes.
-- LISTING_DRAFT.md - GitHub/Godot/itch listing copy.
-- RELEASE_CHECKLIST.md - local verification, publishing path, and Ko-fi post draft.
-- CHANGELOG.md - release notes.
-- assets/cover-1600x1200.png - primary product cover.
-- assets/demo-report-1280x800.png - demo report visual.
-
-## Verification
-
-- npm test passed during packaging.
-- Product images were regenerated during packaging.
-- SHA-256 checksum: $hash
-- The release package excludes dist, node_modules, .git, .godot, .import, and .npm-cache.
-- The product is free and uses Ko-fi only as optional support: https://ko-fi.com/grindknight.
-
-## Next Publishing Step
-
-Create or update the public GitHub release, attach the ZIP, then use the GitHub release URL in any Godot Asset Library, itch.io, or Ko-fi post copy.
-"@
-
-Set-Content -LiteralPath (Join-Path $kitDir "SUBMISSION_CHECKLIST.md") -Value $checklist -Encoding UTF8
+Copy-Item -LiteralPath (Join-Path $assetDir "cover-1600x1200.png") -Destination (Join-Path $assetOutDir "cover-1600x1200.png")
+Copy-Item -LiteralPath (Join-Path $assetDir "demo-report-1280x800.png") -Destination (Join-Path $assetOutDir "demo-report-1280x800.png")
 
 Write-Output "Created $packagePath"
 Write-Output "Created $checksumPath"
-Write-Output "Created listing kit in $kitDir"
+Write-Output "Created release assets in $assetOutDir"
