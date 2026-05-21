@@ -103,7 +103,6 @@ $post = @"
 I released Godot Add-on Auditor $version, a free Godot 4 editor add-on and CLI that helps plugin authors catch packaging issues before publishing. This update adds an in-editor dock for quick local scans while keeping the command-line checks for CI and release scripts.
 
 Free source and download: $releaseUrl
-Optional support: https://ko-fi.com/grindknight
 "@
 
 Set-Content -LiteralPath (Join-Path $listingDir "ko-fi-post.txt") -Value $post.Trim() -Encoding UTF8
