@@ -75,7 +75,11 @@ npm run package
 
 Packaging creates:
 
-- `dist/godot-addon-auditor-0.1.1.zip`
-- `dist/godot-addon-auditor-0.1.1.zip.sha256`
+- `dist/godot-addon-auditor-0.1.2.zip`
+- `dist/godot-addon-auditor-0.1.2.zip.sha256`
+
+## CI
+
+GitHub Actions runs `npm test` on Windows for pushes to `main` and pull requests so release checks stay aligned with the packaged CLI workflow.
 
 Godot Add-on Auditor is fully usable for free.

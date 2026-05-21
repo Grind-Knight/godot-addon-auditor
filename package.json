@@ -1,6 +1,6 @@
 {
   "name": "godot-addon-auditor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A free CLI that checks Godot 4 add-ons for common release and Asset Library packaging issues.",
   "author": "Grind Knight",
   "license": "SEE LICENSE IN LICENSE.md",

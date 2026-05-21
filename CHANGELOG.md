@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 - 2026-05-20
+
+- Added a Windows GitHub Actions workflow that runs `npm test` on pushes to `main` and pull requests.
+
 ## 0.1.1 - 2026-05-17
 
 - Added `--github-annotations` output for GitHub Actions workflows.
