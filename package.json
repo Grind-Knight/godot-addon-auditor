@@ -1,7 +1,7 @@
 {
   "name": "godot-addon-auditor",
-  "version": "0.1.2",
-  "description": "A free CLI that checks Godot 4 add-ons for common release and Asset Library packaging issues.",
+  "version": "0.2.0",
+  "description": "A free CLI and Godot 4 editor add-on that check add-ons for common release and Asset Library packaging issues.",
   "author": "Grind Knight",
   "license": "SEE LICENSE IN LICENSE.md",
   "type": "module",
@@ -12,6 +12,7 @@
     "test": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test.ps1",
     "assets": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/create-assets.ps1",
     "package": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package.ps1",
+    "package:asset-library": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-asset-library.ps1",
     "validate:good": "node src/cli.mjs examples/good-project",
     "validate:bad": "node src/cli.mjs examples/bad-project"
   },

@@ -1,17 +1,23 @@
 # Godot Add-on Auditor
 
-Godot Add-on Auditor is a free command-line checker for Godot 4 add-on authors who want to catch common release and Asset Library packaging issues before uploading a ZIP or publishing a GitHub release.
+Godot Add-on Auditor is a free Godot 4 editor add-on and command-line checker for add-on authors who want to catch common release and Asset Library packaging issues before uploading a ZIP or publishing a GitHub release.
 
-It checks the parts that are easy to miss when finishing an editor plugin: `plugin.cfg` metadata, script paths, editor-plugin script basics, README/license files inside the add-on folder, and noisy folders that should not ship in release archives.
+It checks the parts that are easy to miss when finishing an editor plugin: `plugin.cfg` metadata, script paths, editor-plugin script basics, README/license files inside the add-on folder, and noisy folders that should not ship in release archives. Use the editor dock for quick manual checks, or use the CLI in CI and release scripts.
 
 ## Who It Helps
 
 - Target user: indie Godot 4 plugin authors, jam-tool builders, and small teams preparing a free add-on for GitHub or the Godot Asset Library.
 - Pain point: release mistakes such as missing `plugin/description`, broken `plugin/script`, forgotten license files, or accidental `.godot`/`.import` folders can slow down review and confuse users.
-- Free delivery path: GitHub source plus a downloadable release ZIP.
+- Free delivery path: GitHub source, downloadable release ZIP, and Godot Asset Library listing materials.
 - Optional support: if this tool helps, you can support future free tools at https://ko-fi.com/grindknight.
 
-## Install And Run
+## Install The Godot Add-on
+
+Copy `addons/addon_auditor` into a Godot 4 project, then enable **Godot Add-on Auditor** from **Project > Project Settings > Plugins**.
+
+The add-on adds an **Add-on Auditor** dock that scans the current project for plugin metadata, script path, README/license, and package-noise issues.
+
+## Install And Run The CLI
 
 From this folder:
 
@@ -75,8 +81,15 @@ npm run package
 
 Packaging creates:
 
-- `dist/godot-addon-auditor-0.1.2.zip`
-- `dist/godot-addon-auditor-0.1.2.zip.sha256`
+- `dist/godot-addon-auditor-0.2.0.zip`
+- `dist/godot-addon-auditor-0.2.0.zip.sha256`
+- `dist/asset-library-listing/`
+
+To rebuild only the Asset Library submission materials:
+
+```powershell
+npm run package:asset-library
+```
 
 ## CI
 

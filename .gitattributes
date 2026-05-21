@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+/.github export-ignore
+/dist export-ignore
+/examples export-ignore
+/scripts export-ignore
+/src export-ignore
+/test export-ignore
+/.npm-cache export-ignore
+/package.json export-ignore

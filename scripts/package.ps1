@@ -97,6 +97,7 @@ Set-Content -LiteralPath $checksumPath -Value "$hash  godot-addon-auditor-$versi
 
 Copy-Item -LiteralPath (Join-Path $assetDir "cover-1600x1200.png") -Destination (Join-Path $assetOutDir "cover-1600x1200.png")
 Copy-Item -LiteralPath (Join-Path $assetDir "demo-report-1280x800.png") -Destination (Join-Path $assetOutDir "demo-report-1280x800.png")
+& (Join-Path $PSScriptRoot "package-asset-library.ps1")
 
 Write-Output "Created $packagePath"
 Write-Output "Created $checksumPath"

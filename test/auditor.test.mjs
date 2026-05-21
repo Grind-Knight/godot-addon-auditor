@@ -23,6 +23,11 @@ assert.equal(goodReport.summary.errors, 0);
 assert.equal(goodReport.summary.warnings, 0);
 assert.deepEqual(goodReport.addons, ["addons/quick_spawn"]);
 
+const selfAddonReport = auditProject(path.resolve("."), { addonDir: "addons/addon_auditor" });
+assert.equal(selfAddonReport.summary.errors, 0);
+assert.equal(selfAddonReport.items.filter((item) => item.path.startsWith("addons/addon_auditor")).length, 0);
+assert.deepEqual(selfAddonReport.addons, ["addons/addon_auditor"]);
+
 const badReport = auditProject(path.resolve("examples/bad-project"));
 assert.ok(badReport.summary.errors >= 2);
 assert.ok(badReport.items.some((item) => item.code === "PLUGIN_KEY_MISSING"));

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 - 2026-05-21
+
+- Added a Godot 4 editor add-on wrapper with an in-editor scan dock.
+- Added Asset Library listing kit generation with public-safe listing fields, description copy, images, and Ko-fi post copy.
+- Added a square plugin icon for Godot and Asset Library submissions.
+
 ## 0.1.2 - 2026-05-20
 
 - Added a Windows GitHub Actions workflow that runs `npm test` on pushes to `main` and pull requests.
