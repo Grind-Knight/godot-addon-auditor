@@ -1,9 +1,9 @@
 {
   "name": "godot-addon-auditor",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A free CLI and Godot 4 editor add-on that check add-ons for common release and Asset Library packaging issues.",
   "author": "Grind Knight",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "godot-addon-auditor": "./src/cli.mjs"

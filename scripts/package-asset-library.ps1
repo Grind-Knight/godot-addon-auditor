@@ -50,7 +50,7 @@ Godot Add-on Auditor is a free Godot 4 editor add-on and CLI for checking editor
 
 It scans plugin.cfg metadata, plugin script paths, editor plugin script basics, missing add-on README/license files, and noisy folders such as .godot, .import, .git, node_modules, and .vs. Use the editor dock for quick local checks, or run the CLI in CI and release scripts for repeatable validation.
 
-Version $version adds a Godot editor add-on wrapper so the tool can be installed from the Asset Library while keeping the command-line workflow available from GitHub.
+Version $version keeps the Godot editor add-on install path and command-line workflow aligned for free GitHub and Asset Library distribution.
 
 Free source and downloads: $repoUrl
 Optional support: https://ko-fi.com/grindknight
@@ -68,7 +68,7 @@ $fields = [ordered]@{
   issues_url = $issuesUrl
   download_commit = $downloadCommit
   icon_url = $iconUrl
-  license = "Custom"
+  license = "MIT"
   description_file = "description.txt"
   preview_images = @(
     $coverUrl,
@@ -92,19 +92,19 @@ Use these public-safe fields after the release commit is pushed.
 - Issues URL: $issuesUrl
 - Download commit: $downloadCommit
 - Icon URL: $iconUrl
-- License: Custom
+- License: MIT
 - Preview image 1: $coverUrl
 - Preview image 2: $demoUrl
 
 If `download_commit` is `PUSHED_RELEASE_COMMIT_REQUIRED`, commit and push the current changes, then regenerate this kit before submission.
 
-The repository currently uses a custom permissive license. If the Asset Library form does not offer a matching custom-license option, choose a standard license intentionally before submission and make sure the form value matches `LICENSE.md`.
+The repository uses the MIT license, so the Asset Library license field should also be set to MIT.
 "@
 
 Set-Content -LiteralPath (Join-Path $listingDir "README.md") -Value $readme.Trim() -Encoding UTF8
 
 $post = @"
-I released Godot Add-on Auditor $version, a free Godot 4 editor add-on and CLI that helps plugin authors catch packaging issues before publishing. This update adds an in-editor dock for quick local scans while keeping the command-line checks for CI and release scripts.
+I released Godot Add-on Auditor $version, a free Godot 4 editor add-on and CLI that helps plugin authors catch packaging issues before publishing. This update standardizes the project and bundled add-on license to MIT so the GitHub release and Godot Asset Library metadata match cleanly.
 
 Free source and download: $releaseUrl
 "@

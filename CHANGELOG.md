@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 - 2026-05-21
+
+- Standardized the project and bundled Godot add-on license to MIT for clearer GitHub and Godot Asset Library metadata.
+- Updated generated Asset Library listing fields to use the matching MIT license value.
+
 ## 0.2.0 - 2026-05-21
 
 - Added a Godot 4 editor add-on wrapper with an in-editor scan dock.
@@ -23,4 +28,3 @@
 - Added explicit CLI handling for `--version`, unknown options, and missing `--addon-dir` values.
 - Added SHA-256 checksum generation for the release ZIP and listing kit.
 - Added good and bad sample projects for deterministic tests.
-- Added package and listing-kit scripts for free GitHub release preparation.

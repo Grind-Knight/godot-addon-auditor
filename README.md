@@ -81,8 +81,8 @@ npm run package
 
 Packaging creates:
 
-- `dist/godot-addon-auditor-0.2.0.zip`
-- `dist/godot-addon-auditor-0.2.0.zip.sha256`
+- `dist/godot-addon-auditor-0.2.1.zip`
+- `dist/godot-addon-auditor-0.2.1.zip.sha256`
 - `dist/asset-library-listing/`
 
 To rebuild only the Asset Library submission materials:
