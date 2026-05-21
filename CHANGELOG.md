@@ -28,3 +28,4 @@
 - Added explicit CLI handling for `--version`, unknown options, and missing `--addon-dir` values.
 - Added SHA-256 checksum generation for the release ZIP and listing kit.
 - Added good and bad sample projects for deterministic tests.
+- Added package and listing-kit scripts for free GitHub release preparation.
