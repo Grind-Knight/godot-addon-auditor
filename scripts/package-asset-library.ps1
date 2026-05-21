@@ -37,7 +37,17 @@ try {
 } catch {
   $aheadCount = 0
 }
-$downloadCommit = if ($dirty -or $aheadCount -gt 0) { "PUSHED_RELEASE_COMMIT_REQUIRED" } else { $commit }
+$downloadCommitOverride = $env:GK_ASSET_LIBRARY_DOWNLOAD_COMMIT
+if ($downloadCommitOverride -and $downloadCommitOverride -notmatch "^[0-9a-fA-F]{40}$") {
+  throw "GK_ASSET_LIBRARY_DOWNLOAD_COMMIT must be a 40-character Git commit SHA."
+}
+$downloadCommit = if ($downloadCommitOverride) {
+  $downloadCommitOverride.ToLowerInvariant()
+} elseif ($dirty -or $aheadCount -gt 0) {
+  "PUSHED_RELEASE_COMMIT_REQUIRED"
+} else {
+  $commit
+}
 $iconUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/addons/addon_auditor/icon.png"
 $coverUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/media/cover-1600x1200.png"
 $demoUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/media/demo-report-1280x800.png"
@@ -111,7 +121,7 @@ Free source and download: $releaseUrl
 
 Set-Content -LiteralPath (Join-Path $listingDir "ko-fi-post.txt") -Value $post.Trim() -Encoding UTF8
 
-if ($dirty -or $aheadCount -gt 0) {
+if (-not $downloadCommitOverride -and ($dirty -or $aheadCount -gt 0)) {
   Write-Warning "Working tree has unpushed or uncommitted changes. Push a release commit and regenerate this kit before Asset Library submission."
 }
 
