@@ -39,6 +39,8 @@ try {
 }
 $downloadCommit = if ($dirty -or $aheadCount -gt 0) { "PUSHED_RELEASE_COMMIT_REQUIRED" } else { $commit }
 $iconUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/addons/addon_auditor/icon.png"
+$coverUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/media/cover-1600x1200.png"
+$demoUrl = "https://raw.githubusercontent.com/Grind-Knight/godot-addon-auditor/main/media/demo-report-1280x800.png"
 $repoUrl = "https://github.com/Grind-Knight/godot-addon-auditor"
 $issuesUrl = "$repoUrl/issues"
 $releaseUrl = "$repoUrl/releases/tag/v$version"
@@ -69,8 +71,8 @@ $fields = [ordered]@{
   license = "Custom"
   description_file = "description.txt"
   preview_images = @(
-    "images/cover-1600x1200.png",
-    "images/demo-report-1280x800.png"
+    $coverUrl,
+    $demoUrl
   )
   release_url = $releaseUrl
 }
@@ -91,6 +93,8 @@ Use these public-safe fields after the release commit is pushed.
 - Download commit: $downloadCommit
 - Icon URL: $iconUrl
 - License: Custom
+- Preview image 1: $coverUrl
+- Preview image 2: $demoUrl
 
 If `download_commit` is `PUSHED_RELEASE_COMMIT_REQUIRED`, commit and push the current changes, then regenerate this kit before submission.
 
