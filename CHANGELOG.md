@@ -4,6 +4,7 @@
 
 - Standardized the project and bundled Godot add-on license to MIT for clearer GitHub and Godot Asset Library metadata.
 - Updated generated Asset Library listing fields to use the matching MIT license value.
+- Added validation for `plugin/icon` paths so missing or unsafe add-on icons are caught before release.
 
 ## 0.2.0 - 2026-05-21
 
