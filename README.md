@@ -58,6 +58,7 @@ node src/cli.mjs --version
 - Requires `plugin/name`, `plugin/description`, `plugin/author`, `plugin/version`, and `plugin/script`.
 - Verifies that `plugin/script` resolves inside the project and exists.
 - Warns when the plugin script does not include `@tool` or `extends EditorPlugin`.
+- Warns when `plugin/icon` points outside the project or to a missing file.
 - Warns when the add-on folder does not include its own `README.md` and license file.
 - Warns when release-noise folders such as `.git`, `.godot`, `.import`, `.vs`, or `node_modules` are present under the audited project.
 - Can print GitHub Actions annotations for CI workflows.
