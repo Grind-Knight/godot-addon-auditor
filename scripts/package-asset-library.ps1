@@ -58,7 +58,7 @@ $releaseUrl = "$repoUrl/releases/tag/v$version"
 $description = @"
 Godot Add-on Auditor is a free Godot 4 editor add-on and CLI for checking editor plugins before a release or Asset Library upload.
 
-It scans plugin.cfg metadata, plugin script paths, editor plugin script basics, missing add-on README/license files, and noisy folders such as .godot, .import, .git, node_modules, and .vs. Use the editor dock for quick local checks, or run the CLI in CI and release scripts for repeatable validation.
+It scans plugin.cfg metadata, plugin script and icon paths, editor plugin script basics, missing add-on README/license files, and noisy folders such as .godot, .import, .git, node_modules, and .vs. Use the editor dock for quick local checks, or run the CLI in CI and release scripts for repeatable validation.
 
 Version $version keeps the Godot editor add-on install path and command-line workflow aligned for free GitHub and Asset Library distribution.
 
@@ -114,7 +114,7 @@ The repository uses the MIT license, so the Asset Library license field should a
 Set-Content -LiteralPath (Join-Path $listingDir "README.md") -Value $readme.Trim() -Encoding UTF8
 
 $post = @"
-I released Godot Add-on Auditor $version, a free Godot 4 editor add-on and CLI that helps plugin authors catch packaging issues before publishing. This update standardizes the project and bundled add-on license to MIT so the GitHub release and Godot Asset Library metadata match cleanly.
+I released Godot Add-on Auditor $version, a free Godot 4 editor add-on and CLI that helps plugin authors catch packaging issues before publishing. This update standardizes the project and bundled add-on license to MIT, and it now warns when a declared plugin icon points outside the project or is missing from the package.
 
 Free source and download: $releaseUrl
 "@
