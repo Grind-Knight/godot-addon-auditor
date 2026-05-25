@@ -126,6 +126,13 @@ function auditAddon(projectRoot, addonRoot) {
     }
   }
 
+  const iconPath = resolvePluginAsset(projectRoot, addonRoot, plugin.icon);
+  if (plugin.icon && !iconPath) {
+    items.push(warning("PLUGIN_ICON_PATH", `plugin/icon points outside this project or uses an unsupported path: ${plugin.icon}`, normalizePath(path.relative(projectRoot, configPath))));
+  } else if (iconPath && !existsSync(iconPath)) {
+    items.push(warning("PLUGIN_ICON_MISSING", `plugin/icon file was not found: ${plugin.icon}`, normalizePath(path.relative(projectRoot, iconPath))));
+  }
+
   if (!existsSync(path.join(addonRoot, "README.md"))) {
     items.push(warning("ADDON_README_MISSING", "Add a README.md inside the add-on folder for Asset Library users.", relativeAddon));
   }
@@ -182,17 +189,21 @@ function findAddonRoots(projectRoot, addonDir) {
 }
 
 function resolvePluginScript(projectRoot, addonRoot, scriptValue) {
-  if (!scriptValue) {
+  return resolvePluginAsset(projectRoot, addonRoot, scriptValue);
+}
+
+function resolvePluginAsset(projectRoot, addonRoot, assetValue) {
+  if (!assetValue) {
     return null;
   }
 
   let resolved;
-  if (scriptValue.startsWith("res://")) {
-    resolved = path.resolve(projectRoot, scriptValue.slice("res://".length));
-  } else if (path.isAbsolute(scriptValue)) {
+  if (assetValue.startsWith("res://")) {
+    resolved = path.resolve(projectRoot, assetValue.slice("res://".length));
+  } else if (path.isAbsolute(assetValue)) {
     return null;
   } else {
-    resolved = path.resolve(addonRoot, scriptValue);
+    resolved = path.resolve(addonRoot, assetValue);
   }
 
   const relative = path.relative(projectRoot, resolved);
