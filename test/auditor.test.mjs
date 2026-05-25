@@ -53,6 +53,27 @@ script="../../../outside.gd"
   rmSync(tempRoot, { recursive: true, force: true });
 }
 
+const missingIconRoot = mkdtempSync(path.join(os.tmpdir(), "godot-addon-auditor-"));
+try {
+  mkdirSync(path.join(missingIconRoot, "addons", "missing_icon"), { recursive: true });
+  writeFileSync(path.join(missingIconRoot, "addons", "missing_icon", "plugin.cfg"), `[plugin]
+name="Missing Icon"
+description="Has an icon path that is not packaged"
+author="Tester"
+version="0.1.0"
+script="plugin.gd"
+icon="icon.png"
+`);
+  writeFileSync(path.join(missingIconRoot, "addons", "missing_icon", "plugin.gd"), `@tool
+extends EditorPlugin
+`);
+  const report = auditProject(missingIconRoot);
+  assert.equal(report.summary.errors, 0);
+  assert.ok(report.items.some((item) => item.code === "PLUGIN_ICON_MISSING"));
+} finally {
+  rmSync(missingIconRoot, { recursive: true, force: true });
+}
+
 const versionResult = spawnSync(process.execPath, ["src/cli.mjs", "--version"], { encoding: "utf8" });
 assert.equal(versionResult.status, 0);
 assert.equal(versionResult.stdout.trim(), packageJson.version);
